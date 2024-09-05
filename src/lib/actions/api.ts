@@ -38,3 +38,22 @@ export async function deletePost(id: string) {
   if (!res.ok) throw new Error("Failed to delete post");
   return res.json();
 }
+
+export async function createPost(title: string, body: string, userId: number) {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "POST",
+    body: JSON.stringify({
+      title,
+      body,
+      userId,
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  });
+
+  if (!res.ok) throw new Error("Failed to create post");
+  const data = await res.json();
+  console.log("data", data);
+  return data;
+}
