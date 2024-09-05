@@ -14,6 +14,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { deletePost } from "@/lib/actions/api";
+import { toast } from "sonner";
 
 export default function DeletePostButton({ postId }: { postId: string }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -21,11 +22,14 @@ export default function DeletePostButton({ postId }: { postId: string }) {
 
   const handleDelete = async () => {
     try {
-      await deletePost(postId);
+      const data = await deletePost(postId);
+      toast.warning("Post deleted successfully!", {
+        description: `Post with ID: ${data.id} deleted successfully!`,
+      });
       router.push("/");
-      router.refresh();
     } catch (error) {
       console.error("Error deleting post:", error);
+      toast.error("Error deleting post!");
     }
   };
 

@@ -36,7 +36,8 @@ export async function deletePost(id: string) {
     method: "DELETE",
   });
   if (!res.ok) throw new Error("Failed to delete post");
-  return res.json();
+  const data = await res.json();
+  return data;
 }
 
 export async function createPost(title: string, body: string, userId: number) {

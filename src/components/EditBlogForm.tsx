@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { updatePost } from "@/lib/actions/api";
+import { toast } from "sonner";
 
 interface Post {
   id: string;
@@ -24,12 +25,14 @@ export default function EditPostForm({ post }: { post: Post }) {
     setIsSubmitting(true);
 
     try {
-      await updatePost(post.id, title, body);
+      const updatedPost = await updatePost(post.id, title, body);
+      toast.success("Post created successfully!", {
+        description: `New post created with ID: ${updatedPost.id} and title: "${updatedPost.title}"`,
+      });
       router.push(`/`);
-      router.refresh(); // This will cause the page to re-render with the new data
     } catch (error) {
       console.error("Error updating post:", error);
-      // Here you would typically show an error message to the user
+      toast.error("Error updating post!");
     } finally {
       setIsSubmitting(false);
     }

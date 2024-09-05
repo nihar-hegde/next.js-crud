@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { createPost } from "@/lib/actions/api";
+import { toast } from "sonner";
 
 export default function CreatePostForm() {
   const [title, setTitle] = useState("");
@@ -20,9 +21,13 @@ export default function CreatePostForm() {
     try {
       const userId = 1; // User id is 1 always on jsonplace holder.
       const newPost = await createPost(title, body, userId);
+      toast.success("Post created successfully!", {
+        description: `New post created with ID: ${newPost.id} and title: "${newPost.title}"`,
+      });
       router.push(`/`);
     } catch (error) {
       console.error("Error creating post:", error);
+      toast.error("Error creating post!");
     } finally {
       setIsSubmitting(false);
     }
