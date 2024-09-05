@@ -6,7 +6,7 @@ import { Post } from "@/lib/types";
 
 export default async function BlogPosts({
   page = 1,
-  perPage = 8,
+  perPage = 9,
 }: {
   page: number;
   perPage?: number;
