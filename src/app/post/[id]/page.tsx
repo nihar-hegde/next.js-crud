@@ -17,7 +17,7 @@ const BlogPage = ({ params }: { params: { id: string } }) => {
       </Suspense>
 
       <div className="flex space-x-4 mb-8">
-        <Link href={`/blog/${params.id}/edit`} passHref>
+        <Link href={`/edit/${params.id}`} passHref>
           <Button variant="outline">Edit Post</Button>
         </Link>
         <DeletePostButton postId={params.id} />

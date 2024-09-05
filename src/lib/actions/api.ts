@@ -57,3 +57,22 @@ export async function createPost(title: string, body: string, userId: number) {
   console.log("data", data);
   return data;
 }
+
+export async function updatePost(id: string, title: string, body: string) {
+  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+    method: "PUT",
+    body: JSON.stringify({
+      id,
+      title,
+      body,
+      userId: 1, // In a real app, you'd get this from the authenticated user
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  });
+
+  if (!res.ok) throw new Error("Failed to update post");
+  const data = await res.json();
+  return data;
+}
